@@ -217,8 +217,8 @@
 {{--<script src="{{asset('backend/dist/js/pages/calendar/cal-init.js')}}"></script>--}}
 
 {{--<script src="{{asset("backend/js/jquery-3.6.0.min.js")}}"></script>--}}
-{{--<script src="{{asset("backend/js/bootstrap.min.js")}}"></script>--}}
-{{--<script src="{{asset("backend/js/jquery.form.min.js")}}"></script>--}}
+<script src="{{asset("backend/js/bootstrap.min.js")}}"></script>
+<script src="{{asset("backend/js/jquery.form.min.js")}}"></script>
 <script src="{{asset("backend/js/sweetalert2.min.js")}}"></script>
 <script src="{{asset("backend/js/variables.js")}}"></script>
 <script src="{{asset('backend/js/main.js')}}"></script>

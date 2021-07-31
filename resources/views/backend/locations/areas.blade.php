@@ -35,9 +35,14 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <button type="button" class="btn btn-success btn-sm text-white">Add</button>
-                        <button type="button" class="btn btn-warning btn-sm">Update</button>
-                        <button type="button" class="btn btn-danger btn-sm text-white" onclick="del('{{route("locations.areas.delete")}}');">Delete</button>
+                        <button onclick="show_add_modal();" type="button" class="btn btn-success btn-sm text-white">
+                            Add
+                        </button>
+                        <button onclick="show_update_modal();" type="button" class="btn btn-warning btn-sm">Update
+                        </button>
+                        <button onclick="del('{{route("locations.areas.delete")}}');" type="button"
+                                class="btn btn-danger btn-sm text-white">Delete
+                        </button>
                     </div>
                     <div class="table-responsive">
                         <table class="table">
@@ -51,12 +56,12 @@
                             </thead>
                             <tbody class="customtable">
                             @foreach($location_areas as $area)
-                            <tr class="rows" id="row_{{$area->id}}" onclick="select_row({{$area->id}})">
-                                <td>{{$area->id}}</td>
-                                <td>{{$area->name}}</td>
-                                <td>{{$area->created_at}}</td>
-                                <td>{{$area->updated_at}}</td>
-                            </tr>
+                                <tr class="rows" id="row_{{$area->id}}" onclick="select_row({{$area->id}})">
+                                    <td>{{$area->id}}</td>
+                                    <td id="name_{{$area->id}}">{{$area->name}}</td>
+                                    <td>{{$area->created_at}}</td>
+                                    <td>{{$area->updated_at}}</td>
+                                </tr>
                             @endforeach
                             </tbody>
                         </table>
@@ -77,6 +82,46 @@
     </div>
     <!-- ============================================================== -->
     <!-- End Container fluid  -->
+
+    <!-- Modal -->
+    <div class="modal fade" id="add-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add area</h5>
+                    <button type="button" class="btn btn-danger btn-sm"  onclick="close_modal();">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form id="form" class="add_or_update_form" action="#" method="post">
+                    {{csrf_field()}}
+                    <div id="form_item_id"></div>
+                    <div class="modal-body">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="form-group row">
+                                    <label for="name"
+                                           class="col-sm-3 text-end control-label col-form-label">Area <font style="color: red;">*</font></label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" id="name" name="name" required=""
+                                               maxlength="100" placeholder="Area">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="clear: both;"></div>
+                    <div class="modal-footer">
+                        <p class="submit">
+                            <button type="button" class="btn btn-danger btn-sm" onclick="close_modal();">Cancel</button>
+                            <button type="submit" class="btn btn-primary btn-sm">Save</button>
+                        </p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @section('css')
@@ -86,7 +131,7 @@
 @section('js')
     <script>
         $(document).ready(function () {
-            $('form').ajaxForm({
+            $('#form').ajaxForm({
                 beforeSubmit: function () {
                     //loading
                     swal({
@@ -100,5 +145,38 @@
                 }
             });
         });
+
+        function show_add_modal() {
+            $('#form_item_id').html("");
+            $(".add_or_update_form").prop("action", "{{route("locations.areas.add")}}");
+            $('.modal-title').html('Add area');
+
+            $("#name").val("");
+
+            $('#add-modal').modal('show');
+        }
+
+        function show_update_modal() {
+            let id = 0;
+            id = row_id;
+            if (id === 0) {
+                swal(
+                    'Warning',
+                    'Please select item!',
+                    'warning'
+                );
+                return false;
+            }
+
+            let id_input = '<input type="hidden" name="id" value="' + row_id + '">';
+
+            $('#form_item_id').html(id_input);
+            $(".add_or_update_form").prop("action", "{{route("locations.areas.update")}}");
+            $('.modal-title').html('Update area');
+
+            $("#name").val($("#name_" + row_id).text());
+
+            $('#add-modal').modal('show');
+        }
     </script>
 @endsection

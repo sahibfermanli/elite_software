@@ -13,3 +13,7 @@ a {
 .selected_row {
     background-color: #acecff !important;
 }
+
+.rows {
+    cursor: pointer;
+}

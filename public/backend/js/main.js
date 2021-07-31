@@ -5,6 +5,10 @@ function select_row(row) {
     //$(".action-btn-disable").css('display', 'block');
 }
 
+function close_modal(class_name="modal") {
+    $("."+class_name).modal("hide");
+}
+
 function form_submit_message(response, reload= true, modal_close = true) {
     if (response.case === 'success') {
         if (modal_close) {
