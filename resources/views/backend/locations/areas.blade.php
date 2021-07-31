@@ -45,7 +45,7 @@
                         </button>
                     </div>
                     <div class="table-responsive">
-                        <table class="table">
+                        <table class="table" style="margin-bottom: 0 !important;">
                             <thead class="table-head">
                             <tr>
                                 <th scope="col">#</th>
