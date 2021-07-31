@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Scopes\DeletedScope;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -58,4 +59,28 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    protected static function boot()
+    {
+        parent ::boot();
+        static ::addGlobalScope(new DeletedScope('users'));
+    }
+
+    public function deleted_value() {
+        if ($this->deleted_by == null) {
+            return 0;
+        } else {
+            return 1;
+        }
+    }
+
+    public function username() {
+        return $this->username;
+    }
+
+    public function role() {
+        $role = $this->role_id;
+
+        return $role;
+    }
 }

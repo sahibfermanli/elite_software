@@ -2,7 +2,10 @@
 
 namespace App\Actions\Jetstream;
 
-use Illuminate\Support\Facades\DB;
+use App\Models\User;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
+//use Illuminate\Support\Facades\DB;
 use Laravel\Jetstream\Contracts\DeletesTeams;
 use Laravel\Jetstream\Contracts\DeletesUsers;
 
@@ -23,7 +26,7 @@ class DeleteUser implements DeletesUsers
      */
     public function __construct(DeletesTeams $deletesTeams)
     {
-        $this->deletesTeams = $deletesTeams;
+        //$this->deletesTeams = $deletesTeams;
     }
 
     /**
@@ -34,12 +37,9 @@ class DeleteUser implements DeletesUsers
      */
     public function delete($user)
     {
-        DB::transaction(function () use ($user) {
-            $this->deleteTeams($user);
-            $user->deleteProfilePhoto();
-            $user->tokens->each->delete();
-            $user->delete();
-        });
+        User::where(['id' => Auth::id()])->whereNull('deleted_by')->update(['deleted_by' => Auth::id(), 'deleted_at' => Carbon::now()]);
+
+        Auth::logout();
     }
 
     /**
@@ -48,12 +48,12 @@ class DeleteUser implements DeletesUsers
      * @param  mixed  $user
      * @return void
      */
-    protected function deleteTeams($user)
-    {
-        $user->teams()->detach();
-
-        $user->ownedTeams->each(function ($team) {
-            $this->deletesTeams->delete($team);
-        });
-    }
+//    protected function deleteTeams($user)
+//    {
+//        $user->teams()->detach();
+//
+//        $user->ownedTeams->each(function ($team) {
+//            $this->deletesTeams->delete($team);
+//        });
+//    }
 }

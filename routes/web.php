@@ -16,22 +16,21 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LocationAreasController;
 
-// home page
-Route::get('/', [HomeController::class, 'get_home_page'])->name("home_page");
-Route::get('/home', [HomeController::class, 'get_home_page']);
-Route::get('/index', [HomeController::class, 'get_home_page']);
+Route::prefix('/')->middleware(['auth:sanctum', 'verified'])->group(function () {
+    // home page
+    Route::get('/', [HomeController::class, 'get_home_page'])->name("home_page");
+    Route::get('/home', [HomeController::class, 'get_home_page']);
+    Route::get('/index', [HomeController::class, 'get_home_page']);
+    Route::get('/dashboard', [HomeController::class, 'get_home_page'])->name("dashboard");
 
-// locations
-Route::prefix('/locations')->name('locations.')->group(function () {
-    // areas
-    Route::prefix('/areas')->name('areas.')->group(function () {
-        Route::get('/', [LocationAreasController::class, 'show'])->name('show');
-        Route::post('/add', [LocationAreasController::class, 'add'])->name('add');
-        Route::post('/update', [LocationAreasController::class, 'update'])->name('update');
-        Route::delete('/delete', [LocationAreasController::class, 'delete'])->name('delete');
+    // locations
+    Route::prefix('/locations')->name('locations.')->group(function () {
+        // areas
+        Route::prefix('/areas')->name('areas.')->group(function () {
+            Route::get('/', [LocationAreasController::class, 'show'])->name('show');
+            Route::post('/add', [LocationAreasController::class, 'add'])->name('add');
+            Route::post('/update', [LocationAreasController::class, 'update'])->name('update');
+            Route::delete('/delete', [LocationAreasController::class, 'delete'])->name('delete');
+        });
     });
 });
-
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');
