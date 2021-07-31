@@ -34,6 +34,11 @@
         <div class="row">
             <div class="col-12">
                 <div class="card">
+                    <div class="card-body">
+                        <button type="button" class="btn btn-success btn-sm text-white">Add</button>
+                        <button type="button" class="btn btn-warning btn-sm">Update</button>
+                        <button type="button" class="btn btn-danger btn-sm text-white" onclick="del('{{route("locations.areas.delete")}}');">Delete</button>
+                    </div>
                     <div class="table-responsive">
                         <table class="table">
                             <thead class="table-head">
@@ -46,7 +51,7 @@
                             </thead>
                             <tbody class="customtable">
                             @foreach($location_areas as $area)
-                            <tr>
+                            <tr class="rows" id="row_{{$area->id}}" onclick="select_row({{$area->id}})">
                                 <td>{{$area->id}}</td>
                                 <td>{{$area->name}}</td>
                                 <td>{{$area->created_at}}</td>
@@ -79,5 +84,21 @@
 @endsection
 
 @section('js')
-
+    <script>
+        $(document).ready(function () {
+            $('form').ajaxForm({
+                beforeSubmit: function () {
+                    //loading
+                    swal({
+                        title: '<i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i><span class="sr-only">Please wait...</span>',
+                        text: 'Loading, please wait...',
+                        showConfirmButton: false
+                    });
+                },
+                success: function (response) {
+                    form_submit_message(response);
+                }
+            });
+        });
+    </script>
 @endsection
