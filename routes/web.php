@@ -31,3 +31,7 @@ Route::prefix('/locations')->name('locations.')->group(function () {
         Route::delete('/delete', [LocationAreasController::class, 'delete'])->name('delete');
     });
 });
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+    return view('dashboard');
+})->name('dashboard');
