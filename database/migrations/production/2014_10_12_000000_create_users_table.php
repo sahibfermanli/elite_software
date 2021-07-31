@@ -22,8 +22,14 @@ class CreateUsersTable extends Migration
             $table->string('username');
             $table->string('password');
             $table->rememberToken();
-            $table->foreignId('current_team_id')->nullable();
+            $table->smallInteger('role_id')->default(1);
+            //$table->foreignId('current_team_id')->nullable();
             $table->string('profile_photo_path', 2048)->nullable();
+            //
+            $table->boolean('created_by')->nullable();
+            $table->boolean('updated_by')->nullable();
+            $table->boolean('deleted_by')->nullable();
+            $table->timestamp('deleted_at')->nullable();
             $table->timestamps();
         });
     }
