@@ -18,6 +18,7 @@
 {{--    <link href="{{asset('backend/assets/libs/fullcalendar/dist/fullcalendar.min.css')}}" rel="stylesheet" />--}}
 {{--    <link href="{{asset('backend/assets/extra-libs/calendar/calendar.css')}}" rel="stylesheet" />--}}
     <link href="{{asset('backend/dist/css/style.min.css')}}" rel="stylesheet">
+    <link href="{{asset('backend/dist/css/main.css')}}" rel="stylesheet">
 
     @yield('css')
 

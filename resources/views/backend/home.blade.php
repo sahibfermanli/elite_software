@@ -40,10 +40,10 @@ Home page
             <!-- Column -->
             <div class="col-md-6 col-lg-3">
                 <div class="card card-hover">
-                    <div class="box bg-success text-center">
+                    <a href="{{route('locations.areas.show')}}" class="box bg-success text-center">
                         <h1 class="font-light text-white"><i class="mdi mdi-chart-areaspline"></i></h1>
-                        <h6 class="text-white">Charts</h6>
-                    </div>
+                        <h6 class="text-white">Locations</h6>
+                    </a>
                 </div>
             </div>
             <!-- Column -->
