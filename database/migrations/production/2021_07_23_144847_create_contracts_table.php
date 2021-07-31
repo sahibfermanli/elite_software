@@ -19,9 +19,9 @@ class CreateContractsTable extends Migration
             $table->date('start_date');
             $table->date('expiry_date')->nullable()->comment('if expiry date is null, contract is indefinite.');
             // default
-            $table->boolean('created_by')->default(0);
-            $table->boolean('updated_by')->default(0);
-            $table->boolean('deleted_by')->default(0);
+            $table->boolean('created_by')->nullable();
+            $table->boolean('updated_by')->nullable();
+            $table->boolean('deleted_by')->nullable();
             $table->timestamp('deleted_at')->nullable();
             $table->timestamps();
         });

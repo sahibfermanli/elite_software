@@ -24,9 +24,9 @@ class CreateLocationsTable extends Migration
             $table->integer('payment_currency_id')->nullable(); // currencies table
             $table->integer('contract_id')->nullable(); // contracts table
             // default
-            $table->boolean('created_by')->default(0);
-            $table->boolean('updated_by')->default(0);
-            $table->boolean('deleted_by')->default(0);
+            $table->boolean('created_by')->nullable();
+            $table->boolean('updated_by')->nullable();
+            $table->boolean('deleted_by')->nullable();
             $table->timestamp('deleted_at')->nullable();
             $table->timestamps();
         });
