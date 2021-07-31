@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\LocationAreas;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class LocationAreasController extends HomeController
@@ -33,7 +34,7 @@ class LocationAreasController extends HomeController
         }
         try {
             unset($request['id']);
-            $request->merge(['created_by' => 1]);
+            $request->merge(['created_by' => Auth::id()]);
 
             LocationAreas::create($request->all());
 
@@ -55,7 +56,7 @@ class LocationAreasController extends HomeController
             $id = $request->id;
             unset($request['id'], $request['_token']);
 
-            $request->merge(['updated_by' => 1]);
+            $request->merge(['updated_by' => Auth::id()]);
 
             LocationAreas::where(['id'=>$id])->update($request->all());
 
@@ -74,7 +75,7 @@ class LocationAreasController extends HomeController
             return response(['case' => 'warning', 'title' => 'Warning!', 'content' => 'Id not found!']);
         }
         try {
-            LocationAreas::where(['id' => $request->id])->whereNull('deleted_by')->update(['deleted_by' => 1, 'deleted_at' => Carbon::now()]);
+            LocationAreas::where(['id' => $request->id])->whereNull('deleted_by')->update(['deleted_by' => Auth::id(), 'deleted_at' => Carbon::now()]);
 
             return response(['case' => 'success', 'title' => 'Success!', 'content' => 'Successful!', 'id' => $request->id]);
         } catch (\Exception $e) {
