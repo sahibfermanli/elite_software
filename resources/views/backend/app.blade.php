@@ -190,6 +190,16 @@
                                         </span></a></li>
                         </ul>
                     </li>
+                    <li class="sidebar-item"><a class="sidebar-link has-arrow waves-effect waves-dark"
+                                                href="javascript:void(0)" aria-expanded="false"><i
+                                class="far fa-money-bill-alt"></i><span
+                                class="hide-menu">Payments </span></a>
+                        <ul aria-expanded="false" class="collapse  first-level">
+                            <li class="sidebar-item"><a href="{{route('payments.payment_types.show')}}" class="sidebar-link"><i
+                                        class="mdi mdi-format-list-bulleted-type"></i><span class="hide-menu"> Payment types
+                                        </span></a></li>
+                        </ul>
+                    </li>
                 </ul>
             </nav>
             <!-- End Sidebar navigation -->

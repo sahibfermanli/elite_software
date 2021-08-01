@@ -49,10 +49,10 @@ Home page
             <!-- Column -->
             <div class="col-md-6 col-lg-3">
                 <div class="card card-hover">
-                    <div class="box bg-warning text-center">
+                    <a href="{{route('payments.payment_types.show')}}" class="box bg-warning text-center">
                         <h1 class="font-light text-white"><i class="mdi mdi-collage"></i></h1>
-                        <h6 class="text-white">Widgets</h6>
-                    </div>
+                        <h6 class="text-white">Payments</h6>
+                    </a>
                 </div>
             </div>
             <!-- Column -->

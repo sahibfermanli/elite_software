@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LocationAreasController;
 use App\Http\Controllers\LocationActivityController;
+use App\Http\Controllers\PaymentTypeController;
 
 Route::prefix('/')->middleware(['auth:sanctum', 'verified'])->group(function () {
     // home page
@@ -44,6 +45,17 @@ Route::prefix('/')->middleware(['auth:sanctum', 'verified'])->group(function () 
             Route::post('/add', [LocationActivityController::class, 'add'])->name('add');
             Route::post('/update', [LocationActivityController::class, 'update'])->name('update');
             Route::delete('/delete', [LocationActivityController::class, 'delete'])->name('delete');
+        });
+    });
+
+    // payments
+    Route::prefix('/payments')->name('payments.')->group(function () {
+        // payment_types
+        Route::prefix('/payment-types')->name('payment_types.')->group(function () {
+            Route::get('/', [PaymentTypeController::class, 'show'])->name('show');
+            Route::post('/add', [PaymentTypeController::class, 'add'])->name('add');
+            Route::post('/update', [PaymentTypeController::class, 'update'])->name('update');
+            Route::delete('/delete', [PaymentTypeController::class, 'delete'])->name('delete');
         });
     });
 });
