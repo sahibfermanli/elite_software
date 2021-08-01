@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LocationAreasController;
+use App\Http\Controllers\LocationActivityController;
 
 Route::prefix('/')->middleware(['auth:sanctum', 'verified'])->group(function () {
     // home page
@@ -25,12 +26,24 @@ Route::prefix('/')->middleware(['auth:sanctum', 'verified'])->group(function () 
 
     // locations
     Route::prefix('/locations')->name('locations.')->group(function () {
+        // locations
+        Route::get('/show', [LocationAreasController::class, 'show'])->name('show');
+        Route::post('/add', [LocationAreasController::class, 'add'])->name('add');
+        Route::post('/update', [LocationAreasController::class, 'update'])->name('update');
+        Route::delete('/delete', [LocationAreasController::class, 'delete'])->name('delete');
         // areas
         Route::prefix('/areas')->name('areas.')->group(function () {
             Route::get('/', [LocationAreasController::class, 'show'])->name('show');
             Route::post('/add', [LocationAreasController::class, 'add'])->name('add');
             Route::post('/update', [LocationAreasController::class, 'update'])->name('update');
             Route::delete('/delete', [LocationAreasController::class, 'delete'])->name('delete');
+        });
+        // activities
+        Route::prefix('/activities')->name('activities.')->group(function () {
+            Route::get('/', [LocationActivityController::class, 'show'])->name('show');
+            Route::post('/add', [LocationActivityController::class, 'add'])->name('add');
+            Route::post('/update', [LocationActivityController::class, 'update'])->name('update');
+            Route::delete('/delete', [LocationActivityController::class, 'delete'])->name('delete');
         });
     });
 });

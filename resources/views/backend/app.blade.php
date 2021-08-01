@@ -19,7 +19,7 @@
     {{--    <link href="{{asset('backend/assets/libs/fullcalendar/dist/fullcalendar.min.css')}}" rel="stylesheet" />--}}
     {{--    <link href="{{asset('backend/assets/extra-libs/calendar/calendar.css')}}" rel="stylesheet" />--}}
     <link href="{{asset('backend/dist/css/style.min.css')}}" rel="stylesheet">
-    <link rel="stylesheet" href="{{asset("backend/css/bootstrap.min.css")}}">
+{{--    <link rel="stylesheet" href="{{asset("backend/css/bootstrap.min.css")}}">--}}
     <link rel="stylesheet" href="{{asset("backend/css/sweetalert2.min.css")}}">
     <link href="{{asset('backend/css/main.css')}}" rel="stylesheet">
 
@@ -146,7 +146,8 @@
                             </form>
                             <div class="dropdown-divider"></div>
                             <div class="ps-4 p-10">
-                                <a href="{{ route('profile.show') }}" class="btn btn-sm btn-success btn-rounded text-white">View Profile</a>
+                                <a href="{{ route('profile.show') }}"
+                                   class="btn btn-sm btn-success btn-rounded text-white">View Profile</a>
                             </div>
                         </ul>
                     </li>
@@ -172,6 +173,22 @@
                             <i class="mdi mdi-view-dashboard"></i>
                             <span class="hide-menu">Home</span>
                         </a>
+                    </li>
+                    <li class="sidebar-item"><a class="sidebar-link has-arrow waves-effect waves-dark"
+                                                href="javascript:void(0)" aria-expanded="false"><i
+                                class="mdi mdi-receipt"></i><span
+                                class="hide-menu">Locations </span></a>
+                        <ul aria-expanded="false" class="collapse  first-level">
+                            <li class="sidebar-item"><a href="{{route('locations.show')}}" class="sidebar-link"><i
+                                        class="fas fa-location-arrow"></i><span class="hide-menu"> Locations
+                                        </span></a></li>
+                            <li class="sidebar-item"><a href="{{route('locations.areas.show')}}" class="sidebar-link"><i
+                                        class="mdi mdi-chart-areaspline"></i><span class="hide-menu"> Areas
+                                        </span></a></li>
+                            <li class="sidebar-item"><a href="{{route('locations.activities.show')}}" class="sidebar-link"><i
+                                        class="mdi mdi-note-plus"></i><span class="hide-menu"> Activities
+                                        </span></a></li>
+                        </ul>
                     </li>
                 </ul>
             </nav>
