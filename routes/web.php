@@ -17,6 +17,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LocationAreasController;
 use App\Http\Controllers\LocationActivityController;
 use App\Http\Controllers\PaymentTypeController;
+use App\Http\Controllers\CurrencyController;
 
 Route::prefix('/')->middleware(['auth:sanctum', 'verified'])->group(function () {
     // home page
@@ -56,6 +57,13 @@ Route::prefix('/')->middleware(['auth:sanctum', 'verified'])->group(function () 
             Route::post('/add', [PaymentTypeController::class, 'add'])->name('add');
             Route::post('/update', [PaymentTypeController::class, 'update'])->name('update');
             Route::delete('/delete', [PaymentTypeController::class, 'delete'])->name('delete');
+        });
+        // currencies
+        Route::prefix('/currencies')->name('currencies.')->group(function () {
+            Route::get('/', [CurrencyController::class, 'show'])->name('show');
+            Route::post('/add', [CurrencyController::class, 'add'])->name('add');
+            Route::post('/update', [CurrencyController::class, 'update'])->name('update');
+            Route::delete('/delete', [CurrencyController::class, 'delete'])->name('delete');
         });
     });
 });

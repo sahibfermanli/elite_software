@@ -2,24 +2,25 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\PaymentTypes;
+use App\Models\Currencies;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
-class PaymentTypeController extends Controller
+class CurrencyController extends Controller
 {
     public function show () {
         try {
-            $payment_types = PaymentTypes::select(
+            $currencies = Currencies::select(
                 'id',
                 'name',
+                'icon',
                 'created_at',
                 'updated_at'
             )->get();
 
-            return view('backend.payments.payment_types', compact('payment_types'));
+            return view('backend.payments.currencies', compact('currencies'));
         } catch (\Exception $exception) {
             return view('backend.error');
         }
@@ -28,6 +29,7 @@ class PaymentTypeController extends Controller
     public function add(Request $request) {
         $validator = Validator::make($request->all(), [
             'name' => ['required', 'string', 'max:50'],
+            'icon' => ['required', 'string', 'max:255'],
         ]);
         if ($validator->fails()) {
             return response(['case' => 'warning', 'title' => 'Warning!', 'type'=>'validation', 'content' => $validator->errors()->toArray()]);
@@ -36,7 +38,7 @@ class PaymentTypeController extends Controller
             unset($request['id']);
             $request->merge(['created_by' => Auth::id()]);
 
-            PaymentTypes::create($request->all());
+            Currencies::create($request->all());
 
             return response(['case' => 'success', 'title' => 'Success!', 'content' => 'Successful!']);
         } catch (\Exception $exception) {
@@ -48,6 +50,7 @@ class PaymentTypeController extends Controller
         $validator = Validator::make($request->all(), [
             'id' => ['required', 'integer'],
             'name' => ['required', 'string', 'max:50'],
+            'icon' => ['required', 'string', 'max:255'],
         ]);
         if ($validator->fails()) {
             return response(['case' => 'warning', 'title' => 'Warning!', 'type'=>'validation', 'content' => $validator->errors()->toArray()]);
@@ -58,7 +61,7 @@ class PaymentTypeController extends Controller
 
             $request->merge(['updated_by' => Auth::id()]);
 
-            PaymentTypes::where(['id'=>$id])->update($request->all());
+            Currencies::where(['id'=>$id])->update($request->all());
 
             return response(['case' => 'success', 'title' => 'Success!', 'content' => 'Successful!']);
         } catch (\Exception $exception) {
@@ -75,7 +78,7 @@ class PaymentTypeController extends Controller
             return response(['case' => 'warning', 'title' => 'Warning!', 'content' => 'Id not found!']);
         }
         try {
-            PaymentTypes::where(['id' => $request->id])->whereNull('deleted_by')->update(['deleted_by' => Auth::id(), 'deleted_at' => Carbon::now()]);
+            Currencies::where(['id' => $request->id])->whereNull('deleted_by')->update(['deleted_by' => Auth::id(), 'deleted_at' => Carbon::now()]);
 
             return response(['case' => 'success', 'title' => 'Success!', 'content' => 'Successful!', 'id' => $request->id]);
         } catch (\Exception $e) {

@@ -198,6 +198,9 @@
                             <li class="sidebar-item"><a href="{{route('payments.payment_types.show')}}" class="sidebar-link"><i
                                         class="mdi mdi-format-list-bulleted-type"></i><span class="hide-menu"> Payment types
                                         </span></a></li>
+                            <li class="sidebar-item"><a href="{{route('payments.currencies.show')}}" class="sidebar-link"><i
+                                        class="mdi mdi-currency-usd"></i><span class="hide-menu"> Currencies
+                                        </span></a></li>
                         </ul>
                     </li>
                 </ul>

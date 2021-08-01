@@ -1,6 +1,6 @@
 @extends('backend.app')
 @section('title')
-    Payment Types
+    Currencies
 @endsection
 @section('content')
     <!-- Bread crumb and right sidebar toggle -->
@@ -8,14 +8,14 @@
     <div class="page-breadcrumb">
         <div class="row">
             <div class="col-12 d-flex no-block align-items-center">
-                <h4 class="page-title">Payment Types</h4>
+                <h4 class="page-title">Currencies</h4>
                 <div class="ms-auto text-end">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{route('home_page')}}">Home</a></li>
 {{--                            <li class="breadcrumb-item"><a href="#">Payments</a></li>--}}
                             <li class="breadcrumb-item active" aria-current="page">Payments</li>
-                            <li class="breadcrumb-item active" aria-current="page">Payment types</li>
+                            <li class="breadcrumb-item active" aria-current="page">Currencies</li>
                         </ol>
                     </nav>
                 </div>
@@ -41,7 +41,7 @@
                         </button>
                         <button onclick="show_update_modal();" type="button" class="btn btn-warning btn-sm">Update
                         </button>
-                        <button onclick="del('{{route("payments.payment_types.delete")}}');" type="button"
+                        <button onclick="del('{{route("payments.currencies.delete")}}');" type="button"
                                 class="btn btn-danger btn-sm text-white">Delete
                         </button>
                     </div>
@@ -50,18 +50,20 @@
                             <thead class="table-head">
                             <tr>
                                 <th scope="col">#</th>
-                                <th scope="col">Payment type</th>
+                                <th scope="col">Currency</th>
+                                <th scope="col">Icon</th>
                                 <th scope="col">Created date</th>
                                 <th scope="col">Edited date</th>
                             </tr>
                             </thead>
                             <tbody class="customtable">
-                            @foreach($payment_types as $payment_type)
-                                <tr class="rows" id="row_{{$payment_type->id}}" onclick="select_row({{$payment_type->id}})">
-                                    <td>{{$payment_type->id}}</td>
-                                    <td id="name_{{$payment_type->id}}">{{$payment_type->name}}</td>
-                                    <td>{{$payment_type->created_at}}</td>
-                                    <td>{{$payment_type->updated_at}}</td>
+                            @foreach($currencies as $currency)
+                                <tr class="rows" id="row_{{$currency->id}}" onclick="select_row({{$currency->id}})">
+                                    <td>{{$currency->id}}</td>
+                                    <td id="name_{{$currency->id}}">{{$currency->name}}</td>
+                                    <td id="icon_{{$currency->id}}">{{$currency->icon}}</td>
+                                    <td>{{$currency->created_at}}</td>
+                                    <td>{{$currency->updated_at}}</td>
                                 </tr>
                             @endforeach
                             </tbody>
@@ -90,7 +92,7 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Add payment type</h5>
+                    <h5 class="modal-title">Add currency</h5>
                     <button type="button" class="btn btn-danger btn-sm"  onclick="close_modal();">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -103,10 +105,18 @@
                             <div class="card-body">
                                 <div class="form-group row">
                                     <label for="name"
-                                           class="col-sm-3 text-end control-label col-form-label">Payment type <font style="color: red;">*</font></label>
+                                           class="col-sm-3 text-end control-label col-form-label">Currency <font style="color: red;">*</font></label>
                                     <div class="col-sm-9">
                                         <input type="text" class="form-control" id="name" name="name" required=""
-                                               maxlength="50" placeholder="Payment type">
+                                               maxlength="50" placeholder="Currency">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="icon"
+                                           class="col-sm-3 text-end control-label col-form-label">Icon <font style="color: red;">*</font></label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" id="icon" name="icon" required=""
+                                               maxlength="255" placeholder="Icon">
                                     </div>
                                 </div>
                             </div>
@@ -149,10 +159,11 @@
 
         function show_add_modal() {
             $('#form_item_id').html("");
-            $(".add_or_update_form").prop("action", "{{route("payments.payment_types.add")}}");
-            $('.modal-title').html('Add payment type');
+            $(".add_or_update_form").prop("action", "{{route("payments.currencies.add")}}");
+            $('.modal-title').html('Add currency');
 
             $("#name").val("");
+            $("#icon").val("");
 
             $('#add-modal').modal('show');
         }
@@ -172,10 +183,11 @@
             let id_input = '<input type="hidden" name="id" value="' + row_id + '">';
 
             $('#form_item_id').html(id_input);
-            $(".add_or_update_form").prop("action", "{{route("payments.payment_types.update")}}");
-            $('.modal-title').html('Update payment type');
+            $(".add_or_update_form").prop("action", "{{route("payments.currencies.update")}}");
+            $('.modal-title').html('Update currency');
 
             $("#name").val($("#name_" + row_id).text());
+            $("#icon").val($("#icon_" + row_id).text());
 
             $('#add-modal').modal('show');
         }
