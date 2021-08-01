@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LocationController;
 use App\Http\Controllers\LocationAreasController;
 use App\Http\Controllers\LocationActivityController;
 use App\Http\Controllers\PaymentTypeController;
@@ -29,10 +30,10 @@ Route::prefix('/')->middleware(['auth:sanctum', 'verified'])->group(function () 
     // locations
     Route::prefix('/locations')->name('locations.')->group(function () {
         // locations
-        Route::get('/show', [LocationAreasController::class, 'show'])->name('show');
-        Route::post('/add', [LocationAreasController::class, 'add'])->name('add');
-        Route::post('/update', [LocationAreasController::class, 'update'])->name('update');
-        Route::delete('/delete', [LocationAreasController::class, 'delete'])->name('delete');
+        Route::get('/show', [LocationController::class, 'show'])->name('show');
+        Route::post('/add', [LocationController::class, 'add'])->name('add');
+        Route::post('/update', [LocationController::class, 'update'])->name('update');
+        Route::delete('/delete', [LocationController::class, 'delete'])->name('delete');
         // areas
         Route::prefix('/areas')->name('areas.')->group(function () {
             Route::get('/', [LocationAreasController::class, 'show'])->name('show');

@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
-class CurrencyController extends Controller
+class CurrencyController extends HomeController
 {
     public function show () {
         try {

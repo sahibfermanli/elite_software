@@ -20,10 +20,6 @@ class CreateLocationsTable extends Migration
             $table->string('name', 100);
             $table->integer('area_id'); // location_areas table
             $table->integer('activity_id'); // location_activities table
-            $table->smallInteger('payment_type_id'); // payment_types table
-            $table->integer('payment_percent')->nullable();
-            $table->integer('payment_price')->comment("with a penny (price*100)")->nullable();
-            $table->integer('currency_id')->nullable(); // currencies table
             $table->integer('contract_id')->nullable(); // contracts table
             // default
             $table->boolean('created_by')->nullable();

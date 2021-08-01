@@ -16,6 +16,11 @@ class CreateContractsTable extends Migration
         Schema::create('contracts', function (Blueprint $table) {
             $table->id();
             $table->string('name', '255');
+            $table->smallInteger('payment_type_id'); // payment_types table
+            $table->integer('payment_percent')->nullable();
+            $table->integer('payment_price')->comment("with a penny (price/100)")->nullable();
+            $table->integer('currency_id')->nullable(); // currencies table
+            $table->boolean('is_active')->default(1);
             $table->date('start_date');
             $table->date('expiry_date')->nullable()->comment('if expiry date is null, contract is indefinite.');
             // default
